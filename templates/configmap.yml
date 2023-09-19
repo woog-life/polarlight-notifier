@@ -7,3 +7,6 @@ data:
   NOTIFIER_ID: "{{ .Values.configmap.notifierId }}"
   CHAT_ID: "{{ .Values.configmap.chatId }}"
   NOTIFY_ON_ALERT_CHANCE_VALUES: "{{ .Values.configmap.notifyChanceValues }}"
+  NOTIFY_TIMEOUT_MINUTES: "{{ .Values.configmap.notificationTimeout }}"
+  CONFIGMAP_NAME: "{{ .Values.configmap.configmap.name }}"
+  CONFIGMAP_NAMESPACE: "{{ .Values.configmap.configmap.namespace }}"

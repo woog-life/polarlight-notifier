@@ -28,3 +28,7 @@ configmap:
   chatId: "-1001397708243"
   notifierId: "139656428"
   notifyChanceValues: "hoch"
+  configmap:
+    name: polarlight-state
+    namespace: wooglfe
+  notificationTimeout: 720 # 12 hours
