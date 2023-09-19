@@ -69,7 +69,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: push-container-image
+    needs: push
     concurrency: production
     steps:
       - uses: actions/checkout@v4
