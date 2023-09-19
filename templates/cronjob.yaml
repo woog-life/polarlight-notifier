@@ -18,6 +18,7 @@ spec:
       backoffLimit: {{ .Values.cronjob.backoffLimit }}
       template:
         spec:
+          serviceAccountName: {{ .Values.serviceaccount.name }}
           restartPolicy: {{ .Values.cronjob.restartPolicy }}
           containers:
           - name: {{ .Values.cronjob.name }}

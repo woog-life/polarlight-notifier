@@ -32,3 +32,6 @@ configmap:
     name: polarlight-state
     namespace: wooglfe
   notificationTimeout: 720 # 12 hours
+
+serviceaccount:
+  name: polarlightstate
