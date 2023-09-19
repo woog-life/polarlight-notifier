@@ -78,7 +78,6 @@ jobs:
       - name: Substitute environment variables in values.yaml
         env:
           IMAGE_NAME: "ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
         run: "envsubst < values.yaml > values_sub.yaml && mv values_sub.yaml values.yaml"
       - name: install helm chart
         uses: BlindfoldedSurgery/github-action-helm@v0.3.0

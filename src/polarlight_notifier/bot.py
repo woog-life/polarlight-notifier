@@ -30,7 +30,7 @@ def send_error(message: str, chat_id: str, bot: telegram.Bot):
 
 
 def main():
-    bot_token = getenv_or_die("TELEGRAM_TOKEN")
+    bot_token = getenv_or_die("TOKEN")
     application = ApplicationBuilder().token(bot_token).build()
     bot: Bot = application.bot
 
