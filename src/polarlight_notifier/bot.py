@@ -13,7 +13,6 @@ from polarlight_notifier import polarlicht
 from polarlight_notifier.logger import create_logger
 from polarlight_notifier.state import ConfigmapState
 
-
 config.load_config()
 kubernetes_api_client = client.CoreV1Api()
 _state = ConfigmapState(kubernetes_api_client, {})

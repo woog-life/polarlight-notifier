@@ -30,3 +30,8 @@ profile = "black"
 filterwarnings = [
     # "error",
 ]
+
+[[tool.mypy.overrides]]
+# the kubernetes-typed package isn't compatible with mypy >0.19
+module = "kubernetes.*"
+ignore_missing_imports = true
