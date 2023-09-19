@@ -2,20 +2,23 @@ namespace: wooglife
 
 name: &name polarlight-notifier
 
-statefulset:
+cronjob:
   name: *name
   image: "${IMAGE_NAME}:${GITHUB_SHA}"
-  imagePullPolicy: IfNotPresent
-  revisionHistoryLimit: 1
-  replicas: 1
+  schedule: "*/30 * * * *"
+  timeZone: "Europe/Berlin"
+  backoffLimit: 0
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  restartPolicy: Never
   labels:
     app: *name
   requests:
-    cpu: 50m
+    cpu: 100m
     memory: 100Mi
-  limits:
+  limit:
     cpu: 300m
-    memory: 500Mi
+    memory: 300Mi
 
 secret:
   name: *name
