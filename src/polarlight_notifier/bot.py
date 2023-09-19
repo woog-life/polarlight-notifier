@@ -30,6 +30,8 @@ def send_error(message: str, chat_id: str, bot: telegram.Bot):
 
 
 def main():
+    # if we have no frame then we're probably in deep trouble
+    logger = create_logger(inspect.currentframe().f_code.co_name)  # type: ignore
     bot_token = getenv_or_die("TOKEN")
     application = ApplicationBuilder().token(bot_token).build()
     bot: Bot = application.bot
@@ -42,10 +44,13 @@ def main():
     ]
     try:
         chance = polarlicht.get_probability()
+        logger.debug(f"found change: {chance}")
         if chance.lower() in notify_on_values:
             send_chance(chance, chat_id, bot)
+        else:
             send_chance(chance, notifier_id, bot)
     except polarlicht.MissingChanceException:
+        logger.error("missing chance", exc_info=True)
         send_error("missing chance", notifier_id, bot)
 
 
