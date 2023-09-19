@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  revisionHistoryLimit: {{ .Values.statefulset.revisionHistoryLimit }}
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      {{- range $k, $v := .Values.statefulset.labels }}
+      {{ $k }}: {{ $v }}
+      {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- range $k, $v := .Values.statefulset.labels }}
+        {{ $k }}: {{ $v }}
+        {{- end }}
+    spec:
+      containers:
+      - name: {{ .Values.statefulset.name }}
+        image: {{ .Values.statefulset.image }}
+        imagePullPolicy: {{ .Values.statefulset.imagePullPolicy }}
+        envFrom:
+          - secretRef:
+              name: {{ .Values.secret.name }}
+          - configMapRef:
+              name: {{ .Values.configmap.name }}
+        resources:
+          requests:
+            cpu: {{ .Values.statefulset.requests.cpu }}
+            memory: {{ .Values.statefulset.requests.memory }}
+          limits:
+            cpu: {{ .Values.statefulset.limits.cpu }}
+            memory: {{ .Values.statefulset.limits.memory }}

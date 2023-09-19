@@ -1,0 +1,28 @@
+namespace: wooglife
+
+name: &name polarlight_notifier
+
+statefulset:
+  name: *name
+  image: "${IMAGE_NAME}:${GITHUB_SHA}"
+  imagePullPolicy: IfNotPresent
+  revisionHistoryLimit: 1
+  replicas: 1
+  labels:
+    app: *name
+  requests:
+    cpu: 50m
+    memory: 100Mi
+  limits:
+    cpu: 300m
+    memory: 500Mi
+
+secret:
+  name: *name
+  telegramToken: "${TELEGRAM_TOKEN}"
+
+configmap:
+  name: *name
+  chatId: "-1001397708243"
+  notifierId: "139656428"
+  notifyChanceValues: "hoch"

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  NOTIFIER_ID: "{{ .Values.configmap.notifierId }}"
+  CHAT_ID: "{{ .Values.configmap.chatId }}"
+  NOTIFY_ON_ALERT_CHANCE_VALUES: "{{ .Values.configmap.notifyChanceValues }}"
