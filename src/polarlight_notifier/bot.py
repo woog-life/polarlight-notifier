@@ -1,3 +1,4 @@
+import asyncio
 import inspect
 import os
 import sys
@@ -29,7 +30,7 @@ async def send_error(message: str, chat_id: str, bot: telegram.Bot):
     await bot.send_message(chat_id=chat_id, text=message)
 
 
-def main():
+async def main():
     # if we have no frame then we're probably in deep trouble
     logger = create_logger(inspect.currentframe().f_code.co_name)  # type: ignore
     bot_token = getenv_or_die("TOKEN")
@@ -46,13 +47,13 @@ def main():
         chance = polarlicht.get_probability()
         logger.debug(f"found change: {chance}")
         if chance.lower() in notify_on_values:
-            send_chance(chance, chat_id, bot)
+            await send_chance(chance, chat_id, bot)
         else:
-            send_chance(chance, notifier_id, bot)
+            await send_chance(chance, notifier_id, bot)
     except polarlicht.MissingChanceException:
         logger.error("missing chance", exc_info=True)
-        send_error("missing chance", notifier_id, bot)
+        await send_error("missing chance", notifier_id, bot)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.ensure_future(main())
