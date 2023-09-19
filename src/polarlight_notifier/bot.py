@@ -2,13 +2,22 @@ import asyncio
 import inspect
 import os
 import sys
+from datetime import datetime, timedelta
 
 import telegram
+from kubernetes import client, config
 from telegram import Bot
 from telegram.ext import ApplicationBuilder
 
 from polarlight_notifier import polarlicht
 from polarlight_notifier.logger import create_logger
+from polarlight_notifier.state import ConfigmapState
+
+
+config.load_config()
+kubernetes_api_client = client.CoreV1Api()
+_state = ConfigmapState(kubernetes_api_client, {})
+_state.initialize()
 
 
 def getenv_or_die(env_variable: str):
@@ -30,6 +39,24 @@ async def send_error(message: str, chat_id: str, bot: telegram.Bot):
     await bot.send_message(chat_id=chat_id, text=message)
 
 
+def should_notify() -> bool:
+    last_update = _state.get("last_update")
+    if not last_update:
+        return True
+    notify_timeout = int(os.getenv("NOTIFY_TIMEOUT_MINUTES") or "1440")
+
+    last_update_time = datetime.fromtimestamp(float(last_update))
+    now = datetime.now()
+    cutoff = now - timedelta(minutes=notify_timeout)
+
+    if cutoff <= last_update_time:
+        _state["last_update"] = str(now.timestamp())
+        _state.write()
+        return True
+    else:
+        return False
+
+
 async def main():
     # if we have no frame then we're probably in deep trouble
     logger = create_logger(inspect.currentframe().f_code.co_name)  # type: ignore
@@ -47,7 +74,10 @@ async def main():
         chance = polarlicht.get_probability()
         logger.debug(f"found change: {chance}")
         if chance.lower() in notify_on_values:
-            await send_chance(chance, chat_id, bot)
+            if should_notify():
+                await send_chance(chance, chat_id, bot)
+            else:
+                logger.info("skip `send_chance` due to notification timeout")
         else:
             await send_chance(chance, notifier_id, bot)
     except polarlicht.MissingChanceException:
