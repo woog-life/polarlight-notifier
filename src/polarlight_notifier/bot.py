@@ -22,11 +22,11 @@ def getenv_or_die(env_variable: str):
 
 def send_chance(chance: str, chat_id: str, bot: telegram.Bot):
     message = f"Aktuelle Polarlicht-Wahrscheinlichkeit ist {chance}"
-    bot.send_message(chat_id=chat_id, message=message)
+    bot.send_message(chat_id=chat_id, text=message)
 
 
 def send_error(message: str, chat_id: str, bot: telegram.Bot):
-    bot.send_message(chat_id=chat_id, message=message)
+    bot.send_message(chat_id=chat_id, text=message)
 
 
 def main():
