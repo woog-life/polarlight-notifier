@@ -30,7 +30,7 @@ jobs:
       - name: Run tests
         run: poetry run pytest src/
 
-  build-container-image:
+  build:
     runs-on: ubuntu-latest
     if: success() && github.event_name == 'pull_request'
     needs:
@@ -45,7 +45,7 @@ jobs:
           push: false
           tags: "ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}:${{ github.sha }}"
 
-  push-container-image:
+  push:
     runs-on: ubuntu-latest
     needs:
       - lint
@@ -84,7 +84,7 @@ jobs:
         uses: BlindfoldedSurgery/github-action-helm@v0.3.0
         with:
           subcommand: upgrade
-          release_name: polarlight_notifier
+          release_name: polarlight-notifier
           ref: .
           install: true
           namespace: wooglife
