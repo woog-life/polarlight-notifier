@@ -56,4 +56,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.ensure_future(main())
+    asyncio.run(main())
