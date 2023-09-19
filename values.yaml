@@ -1,6 +1,6 @@
 namespace: wooglife
 
-name: &name polarlight_notifier
+name: &name polarlight-notifier
 
 statefulset:
   name: *name
