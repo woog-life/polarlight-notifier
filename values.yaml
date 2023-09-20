@@ -30,7 +30,7 @@ configmap:
   notifyChanceValues: "hoch"
   configmap:
     name: polarlight-state
-    namespace: wooglfe
+    namespace: wooglife
   notificationTimeout: 720 # 12 hours
 
 serviceaccount:
