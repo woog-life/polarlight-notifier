@@ -77,8 +77,6 @@ async def main():
                 await send_chance(chance, chat_id, bot)
             else:
                 logger.info("skip `send_chance` due to notification timeout")
-        else:
-            await send_chance(chance, notifier_id, bot)
     except polarlicht.MissingChanceException:
         logger.error("missing chance", exc_info=True)
         await send_error("missing chance", notifier_id, bot)
