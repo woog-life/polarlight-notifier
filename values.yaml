@@ -27,7 +27,7 @@ configmap:
   name: *name
   chatId: "-1001397708243"
   notifierId: "139656428"
-  notifyChanceValues: "hoch"
+  notifyChanceValues: "hoch,sehr hoch"
   configmap:
     name: polarlight-state
     namespace: wooglife

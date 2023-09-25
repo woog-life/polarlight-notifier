@@ -40,15 +40,19 @@ async def send_error(message: str, chat_id: str, bot: telegram.Bot):
 
 def should_notify() -> bool:
     last_update = _state.get("last_update")
+    now = datetime.now()
     if not last_update:
+        create_logger("should_notify").debug("notify and initialize state")
+        _state["last_update"] = str(now.timestamp())
+        _state.write()
         return True
     notify_timeout = int(os.getenv("NOTIFY_TIMEOUT_MINUTES") or "1440")
 
     last_update_time = datetime.fromtimestamp(float(last_update))
-    now = datetime.now()
-    cutoff = now - timedelta(minutes=notify_timeout)
+    cutoff = now + timedelta(minutes=notify_timeout)
 
     if cutoff <= last_update_time:
+        create_logger("should_notify").debug("notify and update state")
         _state["last_update"] = str(now.timestamp())
         _state.write()
         return True
