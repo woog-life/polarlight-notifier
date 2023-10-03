@@ -5,7 +5,7 @@ description = "notifies group about polar light events (taken from https://polar
 authors = ["Torben Carstens <git@carstens.tech>"]
 
 [tool.poetry.dependencies]
-python = "~3.11"
+python = "~3.12"
 beautifulsoup4 = "^4.12.2"
 # python-telegram-bot requires this
 httpx = "<0.25.1"
