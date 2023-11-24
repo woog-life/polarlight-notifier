@@ -8,7 +8,7 @@ authors = ["Torben Carstens <git@carstens.tech>"]
 python = "~3.12"
 beautifulsoup4 = "^4.12.2"
 # python-telegram-bot requires this
-httpx = "<0.25.2"
+httpx = "<0.25.3"
 python-telegram-bot = "^20.5"
 types-beautifulsoup4 = "^4.12.0.6"
 kubernetes = "^28.1.0"
