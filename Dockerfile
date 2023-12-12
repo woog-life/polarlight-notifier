@@ -8,8 +8,8 @@ WORKDIR /app
 
 ENV POETRY_VIRTUALENVS_CREATE=false
 
-RUN pip install pipx==1.2.1 --user --no-cache
-RUN pipx install poetry==1.6.1
+RUN pip install pipx==1.3.3 --user --no-cache
+RUN pipx install poetry==1.7.1
 
 COPY [ "poetry.toml", "poetry.lock", "pyproject.toml", "./" ]
 
