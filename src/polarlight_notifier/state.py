@@ -16,10 +16,10 @@ class State:
         self.write()
 
     def read(self, update_global_state: bool = True) -> dict[str, Any]:
-        raise NotImplemented
+        raise NotImplementedError
 
     def write(self):
-        raise NotImplemented
+        raise NotImplementedError
 
     def set(self, key: str, value: Any):
         self.state[key] = value
