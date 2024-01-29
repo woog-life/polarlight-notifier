@@ -14,7 +14,7 @@ types-beautifulsoup4 = "^4.12.0.6"
 kubernetes = "^28.1.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.0.0"
+black = "^24.0.0"
 isort = "^5.12.0"
 mypy = "^1.0.0"
 pytest = "^8.0.0"
