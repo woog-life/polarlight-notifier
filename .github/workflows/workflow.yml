@@ -11,13 +11,13 @@ jobs:
   lint:
     uses: BlindfoldedSurgery/actions-python/.github/workflows/lint.yml@v1
     with:
-      python-version: '3.12'
+      python-version: '3.13'
       debian-version: bullseye
 
   test:
     uses: BlindfoldedSurgery/actions-python/.github/workflows/test.yml@v1
     with:
-      python-version: '3.12'
+      python-version: '3.13'
       debian-version: bullseye
 
   build-container-image:
